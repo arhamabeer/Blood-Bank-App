@@ -1,0 +1,190 @@
+
+
+/* SIGN IN PAGE CSS */
+
+
+.div-login{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    text-align: center;
+    margin: 10% 25%;
+    padding: 30px;
+}
+.form-login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
+.input-login{
+    width: 500px;
+    height: 50px;
+    border: 1px solid red;
+    border-radius: 10px;
+    padding: 1px 10px;
+    margin-bottom: 15px;
+    font-size: 19px;
+
+}
+.InputWithIcon-login{
+    width: 100% !important;
+}
+.MuiTextField-root{
+    width: 500px !important;
+}
+.makeStyles-textField-5{
+    width: 500px !important;
+
+}
+.SignInBtn{
+    margin-top: 25px !important;
+    width: 350px !important;
+}
+
+
+
+/* SIGN UP PAGE CSS */
+
+
+
+.div-signup-main{
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.SignUpSelect-wantTo{
+    width: 500px !important;
+    
+}
+.makeStyles-textField-17{
+    width: 500px !important;
+}
+.MuiFormLabel-root{
+    color: red !important;
+}
+.MuiInputBase-root{
+    color: wheat !important;
+}
+.MuiInput-underline:before{
+    border-bottom: 1px solid #ff3333 !important;
+}
+.MuiSelect-icon {
+    color: rgba(255, 51, 51, 0.54) !important;
+}
+.MuiIconButton-root {
+    color: rgba(119, 62, 62, 0.54) !important;
+}
+.MuiFormHelperText-root {
+    color: rgba(255, 51, 51, 0.6) !important;
+}
+
+
+
+    /* HOME PAGE CSS */
+
+
+.div-home-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.logo-img{
+    width: 200px;
+    height: 100px;
+}
+.home-top-div{
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    justify-content: space-around;
+    background-color: #ff000044;
+}
+
+.header-div-home{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #ff000044;
+    padding-bottom: 20px;
+}
+.header-div-home-search{
+    width: 50%;
+    color: black !important;
+}
+.MuiInputBase-input{
+    color: wheat !important;
+
+}
+.header-div-home-userinfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+}
+.header-div-home-logout{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 20%;
+}
+.header-div-home-logout-btn{
+    color: red !important;
+    background-color: #040404 !important;
+    border: 2.9px solid #ff004afa !important;
+}
+.header-div-home-userinfo-icon{
+    background-color: #c2000400 !important; 
+}
+
+
+/*  UserProfile CSS    */
+
+
+.div-head-userProf{
+    display: flex;
+    justify-content: space-around;
+}
+
+.div-head-userProf-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.div-user-info{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
+.div-head-curruserProf-info{
+    display: flex;
+    align-items: center;
+    width: 32%;
+    margin: 16px 0px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
+/*    USERS COMPPONENT CSS      */
+
+.div-users-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
