@@ -61,22 +61,27 @@ import firebase from "firebase";
 // };
 // export {getFBUsers}
 
-export const GET_FB_DATA = "GET_FB_DATA";
+// export const GET_FB_DATA = "GET_FB_DATA";
 
 const action = {};
 
 action.getFBUsers = function () {
-  return function (dispatch) {
+  return (dispatch) => {
     let payload = [];
+    dispatch({
+      type: "SET_STATE_NULL",
+      payload: [],
+    });
     firebase
       .database()
       .ref("/users")
       .on("child_added", (data) => {
         // console.log(data.val());
-        payload.push(data.val());
+        // payload.push(data.val());
+        
         dispatch({
-          type: GET_FB_DATA,
-          payload,
+          type: "GET_FB_DATA",
+          payload: data.val(),
         });
       });
   };

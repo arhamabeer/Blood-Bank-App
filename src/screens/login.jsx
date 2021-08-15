@@ -45,12 +45,12 @@ const mapStateToProps = (state) => ({
   
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   getFBUsers: () => dispatch(getFBUsers()),
-// });
+const mapDispatchToProps = (dispatch) => ({
+  getFBUsers: () => dispatch(action.getFBUsers()),
+});
 
-const mapDispatchToProps = {
-  getFBUsers: action.getFBUsers,
-};
+// const mapDispatchToProps = {
+//   getFBUsers: action.getFBUsers,
+// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
