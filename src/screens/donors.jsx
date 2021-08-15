@@ -88,7 +88,7 @@ const mapStateToProps = (state) => ({
 
 
 const mapDispatchToProps = (dispatch) => ({
-    // getFBUsers: () => dispatch(getFBUsers()),
+    getFBUsers: () => dispatch(action.getFBUsers()),
 })
 
 
