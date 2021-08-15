@@ -5,18 +5,13 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log("PAYLOAD>> ", action);
+  console.log("PAYLOAD>> ", action.payload);
 
   switch (action.type) {
-    case "SETSTATETONULL":
-      return {
-        ...state,
-        users: action.payload,
-      };
     case "GET_FB_DATA":
       return {
         ...state,
-        users: [action.payload],
+        users: action.payload,
       };
   }
 

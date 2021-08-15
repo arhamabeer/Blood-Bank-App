@@ -18,11 +18,15 @@ function Home(props) {
         props.getFBUsers()
     }, []);
 
-    // console.log('PROPS>>> ', props.users)
+    console.log('PROPS>>> ', props.users)
     var totalDonors = props.users
-    if (!totalDonors) {
+    if (!totalDonors.length === 0) {
+        // console.log('PROPS>>> ', totalDonors.length)
+
         return (
-            <h1>Loading</h1>
+            
+            <h1>Loading.....</h1>
+            
         )
     } else {
         return (
@@ -64,9 +68,9 @@ const mapStateToProps = (state) => ({
 
 
 const mapDispatchToProps = {
-    getFBUsers: action.getFBUsers,
-  };
-  
+  getFBUsers: action.getFBUsers,
+};
+
 // const mapDispatchToProps = (dispatch) => ({
 //     // getFBUsers: () => dispatch(getFBUsers()),
 // })
