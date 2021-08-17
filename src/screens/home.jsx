@@ -16,8 +16,8 @@ function Home(props) {
 
   console.log("PROPS>>> ", props.users);
   var totalDonors = props.users;
-  if (!totalDonors) {
-    // console.log('PROPS>>> ', totalDonors.length)
+  if (totalDonors.length === 0) {
+    console.log("PROPS123>>> ", totalDonors.length);
     return <h1>Loading.....</h1>;
   } else {
     return (

@@ -50,9 +50,9 @@ export default function CardHome({ name, color, check }) {
   if (!check) {
 
   } else {
-    console.log("check", check);
+    // console.log("check", check);
     var total = check.map((v) => {
-      console.log('check1, ',v)
+      // console.log('check1, ',v)
       // return v
       return v.wanted.startsWith("Donor") === true ? (don += 1) : (want += 1);
     });

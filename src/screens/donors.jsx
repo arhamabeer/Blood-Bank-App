@@ -8,6 +8,7 @@ import CardDoner from '../components/cardDoner'
 import { connect } from 'react-redux'
 import action from "../store/action";
 
+
 function Donors(props) {
 
     useEffect(async () => {
@@ -42,7 +43,7 @@ function Donors(props) {
         })
     
     }
-
+   
 
     return (
         <div className='div-users-main'>
