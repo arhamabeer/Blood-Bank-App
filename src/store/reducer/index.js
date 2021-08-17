@@ -2,10 +2,21 @@
 
 const INITIAL_STATE = {
   users: [],
+  data_blank: {
+    fname: "",
+    wanted: "",
+    age: "",
+    gender: "",
+    bloodGroup: "",
+    city: "",
+    address: "",
+    email: "",
+    password: "",
+  },
 };
 
 export default (state = INITIAL_STATE, action) => {
-  // console.log("PAYLOAD>> ", action.payload);
+  console.log("PAYLOAD>> ", action.payload);
 
   switch (action.type) {
     case "SET_STATE_NULL":
@@ -16,6 +27,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         users: [...state.users, action.payload],
+      };
+    case "BLANK":
+      return {
+        ...state,
+        data_blank: action.payload,
       };
   }
 

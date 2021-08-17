@@ -16,13 +16,18 @@ import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
 import action from "../store/action";
 // import {addUser} from '../store/action'
-
+import {useHistory} from 'react-router-dom'
 
 
 
 
 function SignUp(props) {
-  const [fname, setFname] = useState('')
+
+const hist = useHistory()
+
+
+  console.log('hist', hist) 
+  const [fname, setFname] = useState()
   const [wanted, setWanted] = useState('')
   const [age, setAge] = useState('')
   const [gender, setGender] = useState('')
@@ -31,11 +36,12 @@ function SignUp(props) {
   const [address, setAddress] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [disableBtn, setDisableBtn] = useState(false)
 
-
+  
   const classes = useStyles();
-  // console.log('props >> ', props)
-  // console.log('fname >> ', password)
+  console.log('props >> ', props.data)
+  console.log('fname >> ', fname)
 
 
   const handleWantChange = (e) => {
@@ -70,7 +76,7 @@ function SignUp(props) {
       <h1 className={classes.header}>Create a new Account</h1>
       <form action="" >
         <SignUpSelect func={handleWantChange} />
-        <NameWithIcon func={handleNameChange} />
+        <NameWithIcon onAdd={fname} func={handleNameChange} />
         <AgeWithIcon func={handleAgeChange} />
         <GenderSelect func={handleGenderChange} />
         <BldGrpSelect func={handleBloodChange} />
@@ -79,7 +85,8 @@ function SignUp(props) {
         <EmailWithIcon func={handleEmailChange} />
         <InputAdornments className='signup-pass' func={handlePasswordChange} />
         <Button
-          onClick={()=>props.addUser(fname, wanted, age, gender, bloodGroup, city, address, email, password)}
+          disabled= {disableBtn}
+          onClick={()=>props.addUser(fname, wanted, age, gender, bloodGroup, city, address, email, password, hist,setDisableBtn)}
           variant="contained"
           color="primary"
           size="large"
@@ -91,18 +98,19 @@ function SignUp(props) {
       </form>
     </div>
   )
+ 
 }
 
 
+
 const mapStateToProps = (state) => ({
-  name: state.name,
-  class: state.class,
-  nick: state.nick
+  data: state.data_blank,
+
 })
 
 
 const mapDispatchToProps = {
-  addUser: (fname, wanted, age, gender, bloodGroup, city, address, email, password) => (action.addUser(fname, wanted, age, gender, bloodGroup, city, address, email, password)),
+  addUser: (fname, wanted, age, gender, bloodGroup, city, address, email, password,hist,setDisableBtn) => (action.addUser(fname, wanted, age, gender, bloodGroup, city, address, email, password, hist,setDisableBtn)),
   // addUser: action.getFBUsers(fname, wanted, age, gender, bloodGroup, city, address, email, password)
 }
 

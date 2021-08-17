@@ -31,6 +31,7 @@ export default function SignUpSelect({func}) {
             <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-helper-label">Want To</InputLabel>
                 <Select
+                    
                     className='SignUpSelect-wantTo'
                     labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
