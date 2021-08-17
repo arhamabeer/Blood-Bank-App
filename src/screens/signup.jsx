@@ -15,6 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { connect } from 'react-redux'
 import action from "../store/action";
+// import {addUser} from '../store/action'
 
 
 
@@ -78,7 +79,7 @@ function SignUp(props) {
         <EmailWithIcon func={handleEmailChange} />
         <InputAdornments className='signup-pass' func={handlePasswordChange} />
         <Button
-          // onClick={addUser(fname, wanted, age, gender, bloodGroup, city, address, email, password)}
+          onClick={()=>props.addUser(fname, wanted, age, gender, bloodGroup, city, address, email, password)}
           variant="contained"
           color="primary"
           size="large"
@@ -100,10 +101,10 @@ const mapStateToProps = (state) => ({
 })
 
 
-const mapDispatchToProps = () => ({
-  // addUser: (fname, wanted, age, gender, bloodGroup, city, address, email, password) => dispatch(addUser(fname, wanted, age, gender, bloodGroup, city, address, email, password)),
+const mapDispatchToProps = {
+  addUser: (fname, wanted, age, gender, bloodGroup, city, address, email, password) => (action.addUser(fname, wanted, age, gender, bloodGroup, city, address, email, password)),
   // addUser: action.getFBUsers(fname, wanted, age, gender, bloodGroup, city, address, email, password)
-})
+}
 
 
 

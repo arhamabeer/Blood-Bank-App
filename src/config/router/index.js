@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import Home from '../../screens/home.jsx'
 import Login from '../../screens/login.jsx'
-import SingUp from '../../screens/signup.jsx'
+import SignUp from '../../screens/signup.jsx'
 import UserProf from '../../screens/userProf'
 import CurrUserProf from '../../screens/currUserProf'
 import Users from '../../screens/users'
@@ -19,7 +19,7 @@ class AppRouter extends React.Component {
             <Router>
                 <Route exact path={['/', '/login']} component={Login} />
                 <Route exact path='/Home' component={Home} />
-                <Route exact path='/signup' component={SingUp} />
+                <Route exact path='/signup' component={SignUp} />
                 <Route exact path='/userprofile' component={UserProf} />
                 <Route exact path='/curruserprofile' component={CurrUserProf} />
                 <Route exact path='/users' component={Users} />

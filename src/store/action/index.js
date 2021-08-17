@@ -1,48 +1,50 @@
 import Firebase from "../../config/firebase";
 import firebase from "firebase";
 
-// const addUser = (
-//   fname,
-//   wanted,
-//   age,
-//   gender,
-//   bloodGroup,
-//   city,
-//   address,
-//   email,
-//   password
-// ) => {
-//   return (dispatch) => {
-//     console.log(
-//       "get user running...>> ",
-//       fname,
-//       wanted,
-//       age,
-//       gender,
-//       bloodGroup,
-//       city,
-//       address,
-//       email,
-//       password
-//     );
-//     var key = firebase.database().ref("/").child("users/").push().key;
-//     const data = {
-//       fname: fname,
-//       wanted: wanted,
-//       age: age,
-//       gender: gender,
-//       bloodGroup: bloodGroup,
-//       city: city,
-//       address: address,
-//       email: email,
-//       password: password,
-//       key: key,
-//     };
+const action = {};
+action.addUser = (
+  fname,
+  wanted,
+  age,
+  gender,
+  bloodGroup,
+  city,
+  address,
+  email,
+  password
+) => {
+  return (dispatch) => {
+    // console.log(
+    //   "get user running...>> ",
+    //   fname,
+    //   wanted,
+    //   age,
+    //   gender,
+    //   bloodGroup,
+    //   city,
+    //   address,
+    //   email,
+    //   password
+    // );
+    var key = firebase.database().ref("/").child("users/").push().key;
+    const data = {
+      fname: fname,
+      wanted: wanted,
+      age: age,
+      gender: gender,
+      bloodGroup: bloodGroup,
+      city: city,
+      address: address,
+      email: email,
+      password: password,
+      key: key,
+    };
 
-//     console.log("key>>", data);
-//     // firebase.database().ref("/users").child(`/${key}`).set(data);
-//   };
-// };
+    // console.log("key>>", data);
+    firebase.database().ref("/users").child(`/${key}`).set(data);
+    // console.log('data sent!')
+  };
+};
 
 // const getFBUsers = () => {
 //   return (dispatch) => {
@@ -63,7 +65,6 @@ import firebase from "firebase";
 
 // export const GET_FB_DATA = "GET_FB_DATA";
 
-const action = {};
 
 action.getFBUsers = function () {
   return (dispatch) => {
