@@ -1,19 +1,21 @@
 import React, {useEffect} from 'react';
 import Logo from '../assets/logo.png'
 import User from '../assets/user.png'
-import SearchBar from "material-ui-search-bar";
+import Search from '../components/search';
 import Button from '@material-ui/core/Button';
 import CardRequired from '../components/cardRequired'
+import {useHistory} from 'react-router-dom'
+import action from "../store/action";
 
 import { connect } from 'react-redux'
 // import action from "../store/action";
 
 function Required(props){
-
+    const hist = useHistory()
     
-    // useEffect(async () => {
-    //     await props.getFBUsers()
-    // }, []);
+    useEffect(async () => {
+        await props.getFBUsers();
+      }, []);
 
     var totalUsers = props.users
     var Require = ''
@@ -44,6 +46,19 @@ function Required(props){
     
     }
 
+    const getSearchItem = (e) => {
+        console.log('search=> ',allUsers)
+        let UppCase = e.toUpperCase()
+    
+        let index = allUsers.map((v, idx) => v.bloodGroup.startsWith(UppCase) ? idx : '').filter(String);   //return the index
+        // console.log(indexes)
+    
+        var value =  index.map(v => {
+          return allUsers[v]
+        })
+    
+        hist.push({ pathname: "/users/search", data: value , purpose: 'required'});
+      };
 
     
     return(
@@ -56,11 +71,7 @@ function Required(props){
             </div>
             <div className='header-div-home'>
                 <div className='header-div-home-search'>
-                    <SearchBar
-                    // value={this.state.value}
-                    // onChange={(newValue) => this.setState({ value: newValue })}
-                    // onRequestSearch={() => doSomethingWith(this.state.value)}
-                    />
+                <Search getSearchItem={getSearchItem} />
                 </div>
                 <div className='header-div-home-userinfo'>
                     <img className='header-div-home-userinfo-icon' src={User} width='50px' height='50px' alt="" />
@@ -91,9 +102,10 @@ const mapStateToProps = (state) => ({
 })
 
 
-const mapDispatchToProps = (dispatch) => ({
-    // getFBUsers: () => dispatch(getFBUsers()),
-})
 
+const mapDispatchToProps = (dispatch) => ({
+    getFBUsers: () => dispatch(action.getFBUsers()),
+  });
+  
 
 export default connect(mapStateToProps, mapDispatchToProps)(Required);

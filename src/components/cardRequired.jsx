@@ -39,7 +39,7 @@ const useStyles = makeStyles({
 export default function CardRequired({ purpose, clr, item }) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
-  console.log("item", item.city);
+  // console.log("item", item.city);
   return (
     <Link
       to={{

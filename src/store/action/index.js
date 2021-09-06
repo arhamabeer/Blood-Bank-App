@@ -2,6 +2,7 @@ import Firebase from "../../config/firebase";
 import firebase from "firebase";
 
 const action = {};
+
 action.addUser = (
   fname,
   wanted,

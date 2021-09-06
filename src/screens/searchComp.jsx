@@ -5,10 +5,15 @@ import Logo from "../assets/logo.png";
 import User from "../assets/user.png";
 import Search from "../components/search";
 import CardDoner from "../components/cardDoner";
+import CardRequired from "../components/cardRequired";
 
 function SearchComp(props) {
-    // console.log('searcgh=> ', props.location.data)
-    var data = props.location.data
+  console.log("search=> ", props.location.data);
+  const data = props.location.data;
+  var purpose = props.location.purpose;
+
+  console.log(data);
+
   return (
     <div className="div-users-main">
       <div className="home-top-div">
@@ -36,9 +41,19 @@ function SearchComp(props) {
         </div>
       </div>
       <div>
-        {data.map((val) => {
-          return <CardDoner purpose="DONOR" clr="green" item={val} />;
-        })}
+        {!data ? (
+          <h1>404...! No data found. Search again.</h1>
+        ) : data.length === 0 ? (
+          <h1>No Record found for your searched blood group.</h1>
+        ) : (
+          data.map((val) => {
+            return purpose === "donor" ? (
+              <CardDoner purpose="DONOR" clr="green" item={val} />
+            ) : (
+              <CardRequired purpose="REQUIRED" clr="red" item={val} />
+            );
+          })
+        )}
       </div>
     </div>
   );

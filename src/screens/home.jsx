@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import Logo from "../assets/logo.png";
 import User from "../assets/user.png";
-import SearchBar from "material-ui-search-bar";
 import Button from "@material-ui/core/Button";
 import CardHome from "../components/cardHomeDonor";
 
@@ -27,13 +26,9 @@ function Home(props) {
           <img src={Logo} className="logo-img" alt="Logo Image" />
         </div>
         <div className="header-div-home">
-          <div className="header-div-home-search">
-            <SearchBar
-            // value={this.state.value}
-            // onChange={(newValue) => this.setState({ value: newValue })}
-            // onRequestSearch={() => doSomethingWith(this.state.value)}
-            />
-          </div>
+            {/* <div className="header-div-home-search">
+            
+            </div> */}
           <div className="header-div-home-userinfo">
             <img
               className="header-div-home-userinfo-icon"

@@ -12,10 +12,6 @@ import action from "../store/action";
 function Donors(props) {
   const hist = useHistory()
 
-  const [search, setSearch] = useState("");
-  const [filtered, setFiltered] = useState("");
-
-  //   console.log("searching", search);
 
   useEffect(async () => {
     await props.getFBUsers();
@@ -70,8 +66,8 @@ function Donors(props) {
     //   return allUsers.findIndex(obj=>(console.log(obj.bloodGroup.startsWith('O'))))
     // }
     // console.log(props)
-    
-    hist.push({ pathname: "/users/search", data: value });
+
+    hist.push({ pathname: "/users/search", data: value , purpose: 'donor'});
   };
     
   return (
