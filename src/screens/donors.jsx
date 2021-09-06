@@ -45,10 +45,29 @@ function Donors(props) {
 
   const getSearchItem = (e) => {
     console.log('search=> ',allUsers)
-    const check = obj=>obj.bloodGroup === e;
-    const index = allUsers.findIndex(check)
-    var value = allUsers[index]
-    console.log(value);
+    let UppCase = e.toUpperCase()
+
+    let index = allUsers.map((v, idx) => v.bloodGroup.startsWith(UppCase) ? idx : '').filter(String);   //return the index
+    // console.log(indexes)
+
+    index.map(v => {
+      var value = allUsers[v]
+      console.log(value);
+    })
+
+
+    // const check = obj=>obj.bloodGroup.startsWith(e);
+    // const index = allUsers.findIndex(check)
+    // var value = allUsers[index]
+    // console.log(value);
+
+
+    // console.log('search=> ',allUsers)
+    // function getIndex(e) {
+    //   return allUsers.findIndex(obj=>(console.log(obj.bloodGroup.startsWith('O'))))
+    // }
+    // console.log(getIndex(e))
+
   };
     
   return (
