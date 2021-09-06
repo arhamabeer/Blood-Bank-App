@@ -16,7 +16,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log("PAYLOAD>> ", action.payload);
+  // console.log("PAYLOAD>> ", action.payload);
 
   switch (action.type) {
     case "SET_STATE_NULL":

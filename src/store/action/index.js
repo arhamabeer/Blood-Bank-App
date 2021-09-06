@@ -109,7 +109,7 @@ action.getFBUsers = function () {
     firebase
       .database()
       .ref("/users")
-      .on("child_added", (data) => {
+      .on("child_added", (data) =>  {
         // console.log(data.val());
         // payload.push(data.val());
 
