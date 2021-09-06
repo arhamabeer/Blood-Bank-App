@@ -11,6 +11,7 @@ import CurrUserProf from '../../screens/currUserProf'
 import Users from '../../screens/users'
 import Donors from '../../screens/donors'
 import Required from '../../screens/required'
+import Search from '../../screens/searchComp'
 
 
 class AppRouter extends React.Component {
@@ -25,6 +26,7 @@ class AppRouter extends React.Component {
                 <Route exact path='/users' component={Users} />
                 <Route exact path='/users/donors' component={Donors} />
                 <Route exact path='/users/required' component={Required} />
+                <Route exact path='/users/search' component={Search} />
             </Router>
         )
     }

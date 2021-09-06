@@ -4,11 +4,14 @@ import User from "../assets/user.png";
 import Search from "../components/search";
 import Button from "@material-ui/core/Button";
 import CardDoner from "../components/cardDoner";
+import {useHistory} from 'react-router-dom'
 
 import { connect } from "react-redux";
 import action from "../store/action";
 
 function Donors(props) {
+  const hist = useHistory()
+
   const [search, setSearch] = useState("");
   const [filtered, setFiltered] = useState("");
 
@@ -50,10 +53,10 @@ function Donors(props) {
     let index = allUsers.map((v, idx) => v.bloodGroup.startsWith(UppCase) ? idx : '').filter(String);   //return the index
     // console.log(indexes)
 
-    index.map(v => {
-      var value = allUsers[v]
-      console.log(value);
+    var value =  index.map(v => {
+      return allUsers[v]
     })
+    // console.log(value);
 
 
     // const check = obj=>obj.bloodGroup.startsWith(e);
@@ -66,8 +69,9 @@ function Donors(props) {
     // function getIndex(e) {
     //   return allUsers.findIndex(obj=>(console.log(obj.bloodGroup.startsWith('O'))))
     // }
-    // console.log(getIndex(e))
-
+    // console.log(props)
+    
+    hist.push({ pathname: "/users/search", data: value });
   };
     
   return (
