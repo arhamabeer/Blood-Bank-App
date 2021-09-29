@@ -4,18 +4,18 @@ import User from "../assets/user.png";
 import Search from "../components/search";
 import Button from "@material-ui/core/Button";
 import CardDoner from "../components/cardDoner";
-import {useHistory} from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 
 import { connect } from "react-redux";
 import action from "../store/action";
 
 function Donors(props) {
-  const hist = useHistory()
-
+  const [users, updateUsers] = React.useState([]);
+  const hist = useHistory();
 
   useEffect(async () => {
     await props.getFBUsers();
-  }, []);
+  }, [allUsers]);
 
   var totalUsers = props.users;
   var Donors = "";
@@ -41,35 +41,15 @@ function Donors(props) {
     });
   }
 
-
   const getSearchItem = (e) => {
-    console.log('search=> ',allUsers)
-    let UppCase = e.toUpperCase()
-
-    let index = allUsers.map((v, idx) => v.bloodGroup.startsWith(UppCase) ? idx : '').filter(String);   //return the index
-    // console.log(indexes)
-
-    var value =  index.map(v => {
-      return allUsers[v]
-    })
-    // console.log(value);
-
-
-    // const check = obj=>obj.bloodGroup.startsWith(e);
-    // const index = allUsers.findIndex(check)
-    // var value = allUsers[index]
-    // console.log(value);
-
-
-    // console.log('search=> ',allUsers)
-    // function getIndex(e) {
-    //   return allUsers.findIndex(obj=>(console.log(obj.bloodGroup.startsWith('O'))))
-    // }
-    // console.log(props)
-
-    hist.push({ pathname: "/users/search", data: value , purpose: 'donor'});
+    let UppCase = e.toUpperCase();
+    var filteredUsers = allUsers.filter((user) => {
+      return user.bloodGroup.startsWith(UppCase);
+    });
+    updateUsers(filteredUsers);
   };
-    
+
+  // console.log('users=> ',users)
   return (
     <div className="div-users-main">
       <div className="home-top-div">
@@ -97,7 +77,12 @@ function Donors(props) {
         </div>
       </div>
       <div>
-        {allUsers.map((val) => {
+        { users.length ? 
+        users.map((val) => {
+          return <CardDoner purpose="DONOR" clr="green" item={val} />;
+        })
+        :
+        allUsers.map((val) => {
           return <CardDoner purpose="DONOR" clr="green" item={val} />;
         })}
       </div>
