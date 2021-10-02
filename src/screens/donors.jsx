@@ -5,7 +5,7 @@ import Search from "../components/search";
 import Button from "@material-ui/core/Button";
 import CardDoner from "../components/cardDoner";
 import { useHistory } from "react-router-dom";
-
+import SearchBar from "material-ui-search-bar";
 import { connect } from "react-redux";
 import action from "../store/action";
 
@@ -42,11 +42,16 @@ function Donors(props) {
   }
 
   const getSearchItem = (e) => {
+    // console.log(e);
     let UppCase = e.toUpperCase();
     var filteredUsers = allUsers.filter((user) => {
       return user.bloodGroup.startsWith(UppCase);
     });
-    updateUsers(filteredUsers);
+    if (filteredUsers.length) {
+      updateUsers(filteredUsers);
+    } else {
+      updateUsers("empty");
+    }
   };
 
   // console.log('users=> ',users)
@@ -58,7 +63,11 @@ function Donors(props) {
       </div>
       <div className="header-div-home">
         <div className="header-div-home-search">
-          <Search getSearchItem={getSearchItem} />
+          <SearchBar
+            classes="searchbar"
+            onChange={(e) => getSearchItem(e)}
+            onCancelSearch={() => updateUsers([])}
+          />
         </div>
         <div className="header-div-home-userinfo">
           <img
@@ -77,13 +86,17 @@ function Donors(props) {
         </div>
       </div>
       <div>
-        {users.length
-          ? users.map((val) => {
-              return <CardDoner purpose="DONOR" clr="green" item={val} />;
-            })
-          : allUsers.map((val) => {
-              return <CardDoner purpose="DONOR" clr="green" item={val} />;
-            })}
+        {users === "empty" ? (
+          <h1>404. Donor not Found</h1>
+        ) : users.length ? (
+          users.map((val) => {
+            return <CardDoner purpose="DONOR" clr="green" item={val} />;
+          })
+        ) : (
+          allUsers.map((v) => {
+            return <CardDoner purpose="DONOR" clr="green" item={v} />;
+          })
+        )}
       </div>
     </div>
   );

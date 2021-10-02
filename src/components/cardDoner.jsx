@@ -55,7 +55,7 @@ export default function CardDoner({ purpose, clr, item }) {
       to={{
         pathname: "/userprofile",
         // className: "link-card",
-        detail: { item: item },
+        detail: { item: item, clr: clr },
       }}
     >
       <Card
@@ -69,7 +69,7 @@ export default function CardDoner({ purpose, clr, item }) {
             {item.fname}
           </Typography>
           <Typography className={classes.pos} color="textSecondary">
-            {purpose}
+            {purpose === "Donor" ? "Blood Donor" : "Blood Seeker"}
           </Typography>
         </CardContent>
         <CardActions>

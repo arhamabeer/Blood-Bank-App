@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import CardRequired from "../components/cardRequired";
 import { useHistory } from "react-router-dom";
 import action from "../store/action";
+import SearchBar from "material-ui-search-bar";
 
 import { connect } from "react-redux";
 // import action from "../store/action";
@@ -44,11 +45,16 @@ function Required(props) {
   }
 
   const getSearchItem = (e) => {
+    // console.log(e);
     let UppCase = e.toUpperCase();
     var filteredUsers = allUsers.filter((user) => {
       return user.bloodGroup.startsWith(UppCase);
     });
-    updateUsers(filteredUsers);
+    if (filteredUsers.length) {
+      updateUsers(filteredUsers);
+    } else {
+      updateUsers("empty");
+    }
   };
 
   return (
@@ -59,7 +65,11 @@ function Required(props) {
       </div>
       <div className="header-div-home">
         <div className="header-div-home-search">
-          <Search getSearchItem={getSearchItem} />
+          <SearchBar
+            classes="searchbar"
+            onChange={(e) => getSearchItem(e)}
+            onCancelSearch={() => updateUsers([])}
+          />
         </div>
         <div className="header-div-home-userinfo">
           <img
@@ -78,13 +88,17 @@ function Required(props) {
         </div>
       </div>
       <div>
-        {users.length
-          ? users.map((val) => {
-              return <CardRequired purpose="SEEKER" clr="red" item={val} />;
-            })
-          : allUsers.map((val) => {
-              return <CardRequired purpose="SEEKER" clr="red" item={val} />;
-            })}
+        {users === "empty" ? (
+          <h1>404. Seeker not Found</h1>
+        ) : users.length ? (
+          users.map((val) => {
+            return <CardRequired purpose="Blood Seeker" clr="red" item={val} />;
+          })
+        ) : (
+          allUsers.map((v) => {
+            return <CardRequired purpose="Blood Seeker" clr="red" item={v} />;
+          })
+        )}
       </div>
     </div>
   );

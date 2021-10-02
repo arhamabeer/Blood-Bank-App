@@ -4,7 +4,7 @@ import User from "../assets/user.png";
 import SearchBar from "material-ui-search-bar";
 import Button from "@material-ui/core/Button";
 import CardUsers from "../components/cardUsers";
-
+import "./screen.css";
 import { connect } from "react-redux";
 import action from "../store/action";
 
@@ -18,20 +18,18 @@ function Users(props) {
   var totalUsers = props.users;
 
   const getSearchItem = (e) => {
-    if (e) {
-      //   console.log(e);
-      let UppCase = e.toUpperCase();
-      var filteredUsers = totalUsers.filter((user) => {
-        return user.bloodGroup.startsWith(UppCase);
-      });
-      if (filteredUsers.length) {
-        updateUsers(filteredUsers);
-      } else {
-        updateUsers("empty");
-      }
+    console.log(e);
+    let UppCase = e.toUpperCase();
+    var filteredUsers = totalUsers.filter((user) => {
+      return user.bloodGroup.startsWith(UppCase);
+    });
+    if (filteredUsers.length) {
+      updateUsers(filteredUsers);
+    } else {
+      updateUsers("empty");
     }
   };
-  //   console.log(users);
+  console.log(users);
 
   return (
     <div className="div-users-main">
@@ -42,6 +40,7 @@ function Users(props) {
       <div className="header-div-home">
         <div className="header-div-home-search">
           <SearchBar
+            classes="searchbar"
             onChange={(e) => getSearchItem(e)}
             onCancelSearch={() => updateUsers([])}
           />

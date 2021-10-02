@@ -23,17 +23,20 @@ const useStyles = makeStyles({
   title: {
     fontSize: 14,
   },
-  pos: {    
+  pos: {
     marginBottom: 12,
   },
 });
 
-export default function UserProfInfo({ name, value }) {
+export default function UserProfInfo({ name, value, clr }) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
-
   return (
-    <Card className={classes.root} variant="outlined">
+    <Card
+      className={classes.root}
+      style={{ borderBottomColor: clr, borderTopColor: clr }}
+      variant="outlined"
+    >
       <CardContent>
         <Typography variant="h6" component="h2">
           {name}

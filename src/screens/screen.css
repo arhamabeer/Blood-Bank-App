@@ -122,7 +122,7 @@
     color: black !important;
 }
 .MuiInputBase-input{
-    color: wheat !important;
+    color: wheat;
 
 }
 .header-div-home-userinfo{
@@ -187,4 +187,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.MuiInput-input{
+    color: black !important;
 }
