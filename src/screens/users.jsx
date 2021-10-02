@@ -1,42 +1,102 @@
-import React from 'react';
-import Logo from '../assets/logo.png'
-import User from '../assets/user.png'
+import React, { useEffect, useState } from "react";
+import Logo from "../assets/logo.png";
+import User from "../assets/user.png";
 import SearchBar from "material-ui-search-bar";
-import Button from '@material-ui/core/Button';
-import CardUsers from '../components/cardUsers'
+import Button from "@material-ui/core/Button";
+import CardUsers from "../components/cardUsers";
 
-export default function Users(){
-    return(
-        <div className='div-users-main'>
-            <div className='home-top-div'>
-                <h1 style={{ fontSize: 40 }}>
-                    AAA BLOOD BANK
-                </h1>
-                <img src={Logo} className='logo-img' alt="Logo Image" />
-            </div>
-            <div className='header-div-home'>
-                <div className='header-div-home-search'>
-                    <SearchBar
-                    // value={this.state.value}
-                    // onChange={(newValue) => this.setState({ value: newValue })}
-                    // onRequestSearch={() => doSomethingWith(this.state.value)}
-                    />
-                </div>
-                <div className='header-div-home-userinfo'>
-                    <img className='header-div-home-userinfo-icon' src={User} width='50px' height='50px' alt="" />
-                    &nbsp; User Name
-                </div>
-                <div className='header-div-home-logout'>
-                    <Button variant="contained" className='header-div-home-logout-btn'>Log Out</Button>
-                </div>
-            </div>
-            <div>
-                <CardUsers name='ARHAM ABEER AHMED' purpose='DONOR' clr='green' />
-                <CardUsers name='BIRAT DHABA' purpose='DONOR' clr='green' />
-                <CardUsers name='TESTER 1' purpose='REQUIRED' clr='red' />
-                <CardUsers name='TESTER 2' purpose='REQUIRED' clr='red' />
-                <CardUsers name='TESTER 3' purpose='DONOR' clr='green' />
-            </div>
+import { connect } from "react-redux";
+import action from "../store/action";
+
+function Users(props) {
+  const [users, updateUsers] = useState([]);
+
+  useEffect(async () => {
+    await props.getFBUsers();
+  }, []);
+
+  var totalUsers = props.users;
+
+  const getSearchItem = (e) => {
+    if (e) {
+      //   console.log(e);
+      let UppCase = e.toUpperCase();
+      var filteredUsers = totalUsers.filter((user) => {
+        return user.bloodGroup.startsWith(UppCase);
+      });
+      if (filteredUsers.length) {
+        updateUsers(filteredUsers);
+      } else {
+        updateUsers("empty");
+      }
+    }
+  };
+  //   console.log(users);
+
+  return (
+    <div className="div-users-main">
+      <div className="home-top-div">
+        <h1 style={{ fontSize: 40 }}>AAA BLOOD BANK</h1>
+        <img src={Logo} className="logo-img" alt="Logo Image" />
+      </div>
+      <div className="header-div-home">
+        <div className="header-div-home-search">
+          <SearchBar
+            onChange={(e) => getSearchItem(e)}
+            onCancelSearch={() => updateUsers([])}
+          />
         </div>
-    )
+        <div className="header-div-home-userinfo">
+          <img
+            className="header-div-home-userinfo-icon"
+            src={User}
+            width="50px"
+            height="50px"
+            alt=""
+          />
+          &nbsp; User Name
+        </div>
+        <div className="header-div-home-logout">
+          <Button variant="contained" className="header-div-home-logout-btn">
+            Log Out
+          </Button>
+        </div>
+      </div>
+      <div>
+        {users === "empty" ? (
+          <h1>404. User not Found</h1>
+        ) : users.length ? (
+          users.map((v) => {
+            return (
+              <CardUsers
+                name={v.fname}
+                purpose={v.wanted}
+                clr={v.wanted === "Donor" ? "green" : "red"}
+              />
+            );
+          })
+        ) : (
+          totalUsers.map((v) => {
+            return (
+              <CardUsers
+                name={v.fname}
+                purpose={v.wanted}
+                clr={v.wanted === "Donor" ? "green" : "red"}
+              />
+            );
+          })
+        )}
+      </div>
+    </div>
+  );
 }
+
+const mapStateToProps = (state) => ({
+  users: state.users,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getFBUsers: () => dispatch(action.getFBUsers()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Users);

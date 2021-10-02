@@ -15,7 +15,7 @@ function Donors(props) {
 
   useEffect(async () => {
     await props.getFBUsers();
-  }, [allUsers]);
+  }, []);
 
   var totalUsers = props.users;
   var Donors = "";
@@ -77,14 +77,13 @@ function Donors(props) {
         </div>
       </div>
       <div>
-        { users.length ? 
-        users.map((val) => {
-          return <CardDoner purpose="DONOR" clr="green" item={val} />;
-        })
-        :
-        allUsers.map((val) => {
-          return <CardDoner purpose="DONOR" clr="green" item={val} />;
-        })}
+        {users.length
+          ? users.map((val) => {
+              return <CardDoner purpose="DONOR" clr="green" item={val} />;
+            })
+          : allUsers.map((val) => {
+              return <CardDoner purpose="DONOR" clr="green" item={val} />;
+            })}
       </div>
     </div>
   );
