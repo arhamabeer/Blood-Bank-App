@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import FormHelperText from '@material-ui/core/FormHelperText';
 
 const useStyles = makeStyles((theme) => ({
     margin: {
@@ -22,7 +21,7 @@ export default function AddressWithIcon({func}) {
                         <TextField type='text' id="input-with-icon-grid" onChange={e => func(e.target.value)}  label="Enter complete Address" />
                     </Grid>
                 </Grid>
-                <FormHelperText>*required</FormHelperText>
+                
             </div>
         </div>
     );

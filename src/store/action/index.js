@@ -1,8 +1,58 @@
 import Firebase from "../../config/firebase";
 import firebase from "firebase";
+import Swal from "sweetalert2";
 
 const action = {};
-
+action.login = (email, password) => {
+  return async (dispatch) => {
+    // console.log(email,password);
+    await fetch("/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
+      .then((data) => {
+        if (data.status === 404) {
+          console.log("error=>", data);
+          throw "User not Found.";
+        } else if (data.status === 401) {
+          console.log("error=>", data);
+          throw "Wrong Credentials.";
+        } else {
+          console.log("success=>", data);
+        }
+        return data.json();
+      })
+      .then((data) => {
+        console.log("res=>", data);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Successfully Logged In",
+          showConfirmButton: false,
+          timer: 1500,
+          background: "black",
+          backdrop: "rgba(201, 75, 108, 0.3) left top no-repeat",
+        });
+        // history.push("/Home");
+      })
+      .catch((err) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: err,
+          showConfirmButton: true,
+          background: "black",
+          backdrop: "rgba(201, 75, 108, 0.3) left top no-repeat",
+        });
+      });
+  };
+};
 action.addUser = (
   fname,
   wanted,
@@ -14,23 +64,11 @@ action.addUser = (
   email,
   password,
   hist,
-  setDisableBtn
+  setDisableBtn,
+  rePassword
 ) => {
-  return (dispatch) => {
-    setDisableBtn(true)
-    // console.log(gender, props);
-    // console.log(
-    //   "get user running...>> ",
-    //   fname,
-    //   wanted,
-    //   age,
-    //   gender,
-    //   bloodGroup,
-    //   city,
-    //   address,
-    //   email,
-    //   password
-    // );
+  return async (dispatch) => {
+    setDisableBtn(true);
     if (
       fname === "" ||
       wanted === "" ||
@@ -42,63 +80,105 @@ action.addUser = (
       email === "" ||
       password === ""
     ) {
-      // var data_blank = {
-      //   fname: '',
-      //   wanted: '',
-      //   age: '',
-      //   gender: '',
-      //   bloodGroup: '',
-      //   city: '',
-      //   address: '',
-      //   email: '',
-      //   password: '',
-      // };
-      // dispatch({type: 'BLANK', payload: data_blank});
-      // setFname('')
-      // console.log(hist.location.pathname = '/login')
-      // alert("Please fill out all fields.");
-      // setDisableBtn(false)
-    } else {
-      var key = firebase.database().ref("/").child("users/").push().key;
-      const data = {
-        fname: fname,
-        wanted: wanted,
-        age: age,
-        gender: gender,
-        bloodGroup: bloodGroup,
-        city: city,
-        address: address,
-        email: email,
-        password: password,
-        key: key,
-      };
+      setDisableBtn(false);
 
-      // console.log("key>>", data);
-      firebase.database().ref("/users").child(`/${key}`).set(data);
-      alert("data sent!");
-      hist.push({ pathname: "/login" });
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Please fill all the fields",
+        showConfirmButton: true,
+        background: "black",
+        backdrop: "rgba(201, 75, 108, 0.3) left top no-repeat",
+      });
+    } else if (rePassword !== password) {
+      setDisableBtn(false);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Passwords do not match",
+        showConfirmButton: true,
+        background: "black",
+        backdrop: "rgba(201, 75, 108, 0.3) left top no-repeat",
+      });
+    } else {
+      Swal.fire({
+        title: "Registering...",
+        backdrop: "rgba(201, 75, 108, 0.3) left top no-repeat",
+        background: "black",
+        position: "center",
+        showConfirmButton: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+      await fetch("/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          fname,
+          age,
+          address,
+          city,
+          gender,
+          bloodGroup,
+          wanted,
+        }),
+      })
+        .then((data) => {
+          if (data.status === 403) {
+            console.log("error=>", data);
+            throw "User already Registered.";
+          } else if (data.status === 400) {
+            console.log("error=>", data);
+            throw "Can't register user.";
+          } else {
+            console.log("success=>", data);
+          }
+          return data.json();
+        })
+        .then(async (data) => {
+          console.log("res=>", data);
+          await Swal.fire({
+            title: "Registered Successfully!",
+            icon: "success",
+            showCancelButton: false,
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Proceed",
+            background: "black",
+            backdrop: "rgba(201, 75, 108, 0.3) left top no-repeat",
+          }).then(async (result) => {
+            await Swal.fire({
+              title: "Redirecting to Login Page...",
+              backdrop: "rgba(201, 75, 108, 0.3) left top no-repeat",
+              background: "black",
+              timer: 1000,
+              position: "center",
+              showConfirmButton: false,
+              didOpen: () => {
+                Swal.showLoading();
+              },
+            });
+          });
+          hist.push("/login");
+        })
+        .catch((err) => {
+          Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: err,
+            showConfirmButton: true,
+            background: "black",
+            backdrop: "rgba(201, 75, 108, 0.3) left top no-repeat",
+          });
+          setDisableBtn(false);
+        });
     }
   };
 };
-
-// const getFBUsers = () => {
-//   return (dispatch) => {
-//     firebase
-//       .database()
-//       .ref("/users")
-//       .on("child_added", (data) => {
-//         console.log(data.val());
-
-//       });
-//       dispatch({
-//         type: "abc",
-//         payload: 'data.val(),'
-//       });
-//   };
-// };
-// export {getFBUsers}
-
-// export const GET_FB_DATA = "GET_FB_DATA";
 
 action.getFBUsers = function () {
   return (dispatch) => {
@@ -110,7 +190,7 @@ action.getFBUsers = function () {
     firebase
       .database()
       .ref("/users")
-      .on("child_added", (data) =>  {
+      .on("child_added", (data) => {
         // console.log(data.val());
         // payload.push(data.val());
 
@@ -140,6 +220,5 @@ action.getFBUsers = function () {
   // };
   // console.log('paylaod=> ', payload[0].address)
 };
-
 
 export default action;

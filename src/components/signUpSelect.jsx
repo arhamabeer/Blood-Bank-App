@@ -42,7 +42,7 @@ export default function SignUpSelect({func}) {
                         <em>Select what you want to be?</em>
                     </MenuItem>
                     <MenuItem value={'Donor'}>Donor</MenuItem>
-                    <MenuItem value={'WantBlood'}>Want Blood</MenuItem>
+                    <MenuItem value={'WantBlood'}>Seeker</MenuItem>
                 </Select>
                 <FormHelperText>*required</FormHelperText>
             </FormControl>
