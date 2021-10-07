@@ -23,54 +23,6 @@ function Login(props) {
     setPassword(e);
   };
 
-  const handleClick = async () => {
-    // console.log(email,password);
-    await fetch("/signin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    })
-      .then((data) => {
-        if (data.status === 404) {
-          console.log("error=>", data);
-          throw "User not Found.";
-        } else if (data.status === 401) {
-          console.log("error=>", data);
-          throw "Wrong Credentials.";
-        } else {
-          console.log("success=>", data);
-        }
-        return data.json();
-      })
-      .then((data) => {
-        console.log("res=>", data);
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Successfully Logged In",
-          showConfirmButton: false,
-          timer: 1500,
-          background: "black",
-          backdrop: "rgba(201, 75, 108, 0.3) left top no-repeat",
-        });
-        // history.push("/Home");
-      })
-      .catch((err) => {
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: err,
-          showConfirmButton: true,
-          background: "black",
-          backdrop: "rgba(201, 75, 108, 0.3) left top no-repeat",
-        });
-      });
-  };
   return (
     <div className="div-login">
       <form className="form-login" action="">
@@ -80,7 +32,7 @@ function Login(props) {
           func={handleEmailChange}
         />
         <InputAdornments func={handlePasswordChange} />
-        <SignInBtn click={() => props.login(email, password)} />
+        <SignInBtn click={() => props.login(email, password, history)} />
       </form>
       <a href="#" style={{ color: "wheat" }}>
         Don't have an account? Sign Up here
@@ -95,7 +47,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getFBUsers: () => dispatch(action.getFBUsers()),
-  login: (email, password) => dispatch(action.login(email, password)),
+  login: (email, password, history) => dispatch(action.login(email, password, history)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

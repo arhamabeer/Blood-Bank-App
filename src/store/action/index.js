@@ -3,9 +3,19 @@ import firebase from "firebase";
 import Swal from "sweetalert2";
 
 const action = {};
-action.login = (email, password) => {
+action.login = (email, password,history) => {
   return async (dispatch) => {
     // console.log(email,password);
+    Swal.fire({
+      title: "Logging In...",
+      backdrop: "rgba(201, 75, 108, 0.3) left top no-repeat",
+      background: "black",
+      position: "center",
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
     await fetch("/signin", {
       method: "POST",
       headers: {
@@ -39,7 +49,7 @@ action.login = (email, password) => {
           background: "black",
           backdrop: "rgba(201, 75, 108, 0.3) left top no-repeat",
         });
-        // history.push("/Home");
+        history.push("/Home");
       })
       .catch((err) => {
         Swal.fire({
