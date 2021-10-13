@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import Logo from "../assets/logo.png";
 import User from "../assets/user.png";
-import Search from "../components/search";
 import Button from "@material-ui/core/Button";
 import CardRequired from "../components/cardRequired";
 import { useHistory } from "react-router-dom";
 import action from "../store/action";
 import SearchBar from "material-ui-search-bar";
+import Swal from "sweetalert2";
 
 import { connect } from "react-redux";
 // import action from "../store/action";
@@ -16,7 +16,8 @@ function Required(props) {
   const hist = useHistory();
 
   useEffect(async () => {
-    await props.getFBUsers();
+    // await props.getFBUsers();
+    props.getMongoUsers();
   }, []);
 
   var totalUsers = props.users;
@@ -36,7 +37,7 @@ function Required(props) {
 
   // console.log(Require)
   if (!Require) {
-    return <h1>Loading</h1>;
+    return <h1>Loading...</h1>;
   } else {
     const keys = Object.keys(Require);
     var allUsers = keys.map((item) => {
@@ -66,7 +67,8 @@ function Required(props) {
       <div className="header-div-home">
         <div className="header-div-home-search">
           <SearchBar
-            classes="searchbar"
+            placeholder="Search by Blood Group"
+            style={{ background: "black" }}
             onChange={(e) => getSearchItem(e)}
             onCancelSearch={() => updateUsers([])}
           />
@@ -105,11 +107,12 @@ function Required(props) {
 }
 
 const mapStateToProps = (state) => ({
-  users: state.users,
+  users: state.musers,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getFBUsers: () => dispatch(action.getFBUsers()),
-});
+const mapDispatchToProps = {
+  // getFBUsers: () => dispatch(action.getFBUsers()),
+  getMongoUsers: action.getMongoUsers,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Required);

@@ -7,18 +7,20 @@ import CardUsers from "../components/cardUsers";
 import "./screen.css";
 import { connect } from "react-redux";
 import action from "../store/action";
+import Swal from "sweetalert2";
 
 function Users(props) {
   const [users, updateUsers] = useState([]);
 
   useEffect(async () => {
-    await props.getFBUsers();
+    // await props.getFBUsers();
+    props.getMongoUsers();
   }, []);
 
   var totalUsers = props.users;
 
   const getSearchItem = (e) => {
-    console.log(e);
+    // console.log(e);
     let UppCase = e.toUpperCase();
     var filteredUsers = totalUsers.filter((user) => {
       return user.bloodGroup.startsWith(UppCase);
@@ -29,7 +31,7 @@ function Users(props) {
       updateUsers("empty");
     }
   };
-  console.log(users);
+  // console.log(users);
 
   return (
     <div className="div-users-main">
@@ -40,7 +42,8 @@ function Users(props) {
       <div className="header-div-home">
         <div className="header-div-home-search">
           <SearchBar
-            classes="searchbar"
+            placeholder="Search by Blood Group"
+            style={{ background: "black" }}
             onChange={(e) => getSearchItem(e)}
             onCancelSearch={() => updateUsers([])}
           />
@@ -91,11 +94,11 @@ function Users(props) {
 }
 
 const mapStateToProps = (state) => ({
-  users: state.users,
+  users: state.musers,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getFBUsers: () => dispatch(action.getFBUsers()),
-});
-
+const mapDispatchToProps = {
+  // getFBUsers: () => dispatch(action.getFBUsers()),
+  getMongoUsers: action.getMongoUsers,
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Users);

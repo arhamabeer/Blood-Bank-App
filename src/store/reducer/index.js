@@ -2,6 +2,7 @@
 
 const INITIAL_STATE = {
   users: [],
+  musers: [],
   data_blank: {
     fname: "",
     wanted: "",
@@ -27,6 +28,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         users: [...state.users, action.payload],
+      };
+    case "GET_MONGO_DATA":
+      return {
+        ...state,
+        musers: action.payload,
       };
     case "BLANK":
       return {

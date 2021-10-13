@@ -69,7 +69,7 @@ export default function CardDoner({ purpose, clr, item }) {
             {item.fname}
           </Typography>
           <Typography className={classes.pos} color="textSecondary">
-            {purpose === "Donor" ? "Blood Donor" : "Blood Seeker"}
+            {purpose === "DONOR" ? "Blood Donor" : "Blood Seeker"}
           </Typography>
         </CardContent>
         <CardActions>

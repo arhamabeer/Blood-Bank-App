@@ -1,39 +1,44 @@
 import React, { useEffect, useState } from "react";
 import Logo from "../assets/logo.png";
 import User from "../assets/user.png";
-import Search from "../components/search";
 import Button from "@material-ui/core/Button";
 import CardDoner from "../components/cardDoner";
 import { useHistory } from "react-router-dom";
 import SearchBar from "material-ui-search-bar";
 import { connect } from "react-redux";
 import action from "../store/action";
+import Swal from "sweetalert2";
 
 function Donors(props) {
   const [users, updateUsers] = React.useState([]);
   const hist = useHistory();
 
   useEffect(async () => {
-    await props.getFBUsers();
+    // await props.getFBUsers();
+    props.getMongoUsers();
+
   }, []);
-
-  var totalUsers = props.users;
+  
+  // console.log('Donor=>', props.musers)
+  var totalUsers = props.musers;
   var Donors = "";
-
+  
   const groupByProp = (arr, check) => {
     var result = {};
     arr.forEach(function (item) {
       var val = item[check];
+      
       if (!result[val]) result[val] = [item];
       else result[val].push(item);
     });
+
     Donors = result.Donor;
   };
   groupByProp(totalUsers, "wanted");
+  // console.log('Donor 1=>', Donors)
 
-  // console.log(Donors)
   if (!Donors) {
-    return <h1>Loading</h1>;
+    return <h1>Loading...</h1>;
   } else {
     const keys = Object.keys(Donors);
     var allUsers = keys.map((item) => {
@@ -64,7 +69,8 @@ function Donors(props) {
       <div className="header-div-home">
         <div className="header-div-home-search">
           <SearchBar
-            classes="searchbar"
+            placeholder="Search by Blood Group"
+            style={{ background: "black" }}
             onChange={(e) => getSearchItem(e)}
             onCancelSearch={() => updateUsers([])}
           />
@@ -103,11 +109,13 @@ function Donors(props) {
 }
 
 const mapStateToProps = (state) => ({
-  users: state.users,
+  // users: state.users,
+  musers: state.musers,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getFBUsers: () => dispatch(action.getFBUsers()),
-});
+const mapDispatchToProps = {
+  // getFBUsers: () => dispatch(action.getFBUsers()),
+  getMongoUsers: action.getMongoUsers
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Donors);

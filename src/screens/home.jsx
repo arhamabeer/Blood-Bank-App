@@ -1,23 +1,28 @@
 import React, { useState, useEffect } from "react";
-
+import Loader from "../components/loader";
 import Logo from "../assets/logo.png";
 import User from "../assets/user.png";
 import Button from "@material-ui/core/Button";
 import CardHome from "../components/cardHomeDonor";
-
 import { connect } from "react-redux";
 import action from "../store/action";
 
 function Home(props) {
-  useEffect(() => {
-    props.getFBUsers();
+  useEffect(async() => {
+    // props.getFBUsers();
+    await props.getMongoUsers();
   }, []);
-
-  console.log("PROPS>>> ", props.users);
-  var totalDonors = props.users;
-  if (totalDonors.length === 0) {
-    console.log("PROPS123>>> ", totalDonors.length);
-    return <h1>Loading.....</h1>;
+  // console.log("Mongo res=>", props.musers);
+  // console.log("PROPS>>> ", props.users);
+  var totalDonors = props.musers;
+  if (totalDonors === undefined) {
+    // console.log("PROPS123>>> ", totalDonors.length);
+    return (
+      <div>
+        <Loader />
+        <h1>load</h1>
+      </div>
+    );
   } else {
     return (
       <div className="div-home-main">
@@ -26,9 +31,6 @@ function Home(props) {
           <img src={Logo} className="logo-img" alt="Logo Image" />
         </div>
         <div className="header-div-home">
-            {/* <div className="header-div-home-search">
-            
-            </div> */}
           <div className="header-div-home-userinfo">
             <img
               className="header-div-home-userinfo-icon"
@@ -56,10 +58,12 @@ function Home(props) {
 
 const mapStateToProps = (state) => ({
   users: state.users,
+  musers: state.musers,
 });
 
 const mapDispatchToProps = {
-  getFBUsers: action.getFBUsers,
+  // getFBUsers: action.getFBUsers,
+  getMongoUsers: action.getMongoUsers
 };
 
 // const mapDispatchToProps = (dispatch) => ({

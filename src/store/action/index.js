@@ -3,7 +3,30 @@ import firebase from "firebase";
 import Swal from "sweetalert2";
 
 const action = {};
-action.login = (email, password,history) => {
+
+action.getMongoUsers = () => {
+  return async (dispatch) => {
+    await fetch("/getdata", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log("Mongo res=>", data.data);
+        dispatch({
+          type: 'GET_MONGO_DATA',
+          payload: data.data
+        })
+      })
+      .catch((err) => {
+        console.log("Mongo err=>", err);
+      });
+  };
+};
+
+action.login = (email, password, history) => {
   return async (dispatch) => {
     // console.log(email,password);
     Swal.fire({
