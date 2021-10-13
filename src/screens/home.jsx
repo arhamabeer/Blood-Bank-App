@@ -8,19 +8,25 @@ import { connect } from "react-redux";
 import action from "../store/action";
 
 function Home(props) {
-  useEffect(async() => {
+  useEffect(async () => {
     // props.getFBUsers();
     await props.getMongoUsers();
   }, []);
   // console.log("Mongo res=>", props.musers);
-  // console.log("PROPS>>> ", props.users);
+  // console.log("PROPS>>> ", totalDonors);
   var totalDonors = props.musers;
   if (totalDonors === undefined) {
-    // console.log("PROPS123>>> ", totalDonors.length);
     return (
-      <div>
-        <Loader />
-        <h1>load</h1>
+      <div
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex",
+          height: "520px",
+          fontSize: 42,
+        }}
+      >
+        Fetching Data... <Loader />
       </div>
     );
   } else {
@@ -63,7 +69,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   // getFBUsers: action.getFBUsers,
-  getMongoUsers: action.getMongoUsers
+  getMongoUsers: action.getMongoUsers,
 };
 
 // const mapDispatchToProps = (dispatch) => ({

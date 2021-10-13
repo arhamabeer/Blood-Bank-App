@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import SearchBar from "material-ui-search-bar";
 import { connect } from "react-redux";
 import action from "../store/action";
-import Swal from "sweetalert2";
+import Loader from "../components/loader";
 
 function Donors(props) {
   const [users, updateUsers] = React.useState([]);
@@ -16,18 +16,17 @@ function Donors(props) {
   useEffect(async () => {
     // await props.getFBUsers();
     props.getMongoUsers();
-
   }, []);
-  
+
   // console.log('Donor=>', props.musers)
   var totalUsers = props.musers;
   var Donors = "";
-  
+
   const groupByProp = (arr, check) => {
     var result = {};
     arr.forEach(function (item) {
       var val = item[check];
-      
+
       if (!result[val]) result[val] = [item];
       else result[val].push(item);
     });
@@ -38,7 +37,19 @@ function Donors(props) {
   // console.log('Donor 1=>', Donors)
 
   if (!Donors) {
-    return <h1>Loading...</h1>;
+    return (
+      <div
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex",
+          height: "520px",
+          fontSize: 42,
+        }}
+      >
+        Fetching Donors... <Loader />
+      </div>
+    );
   } else {
     const keys = Object.keys(Donors);
     var allUsers = keys.map((item) => {
@@ -115,7 +126,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   // getFBUsers: () => dispatch(action.getFBUsers()),
-  getMongoUsers: action.getMongoUsers
-}
+  getMongoUsers: action.getMongoUsers,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Donors);

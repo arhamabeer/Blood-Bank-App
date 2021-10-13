@@ -7,7 +7,7 @@ import CardUsers from "../components/cardUsers";
 import "./screen.css";
 import { connect } from "react-redux";
 import action from "../store/action";
-import Swal from "sweetalert2";
+import Loader from "../components/loader";
 
 function Users(props) {
   const [users, updateUsers] = useState([]);
@@ -18,9 +18,24 @@ function Users(props) {
   }, []);
 
   var totalUsers = props.users;
+  if (totalUsers.length === 0) {
+    return (
+      <div
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex",
+          height: "520px",
+          fontSize: 42,
+        }}
+      >
+        Fetching Users... <Loader />
+      </div>
+    );
+  }
 
+  console.log(totalUsers);
   const getSearchItem = (e) => {
-    // console.log(e);
     let UppCase = e.toUpperCase();
     var filteredUsers = totalUsers.filter((user) => {
       return user.bloodGroup.startsWith(UppCase);
@@ -71,8 +86,7 @@ function Users(props) {
           users.map((v) => {
             return (
               <CardUsers
-                name={v.fname}
-                purpose={v.wanted}
+                item={v}
                 clr={v.wanted === "Donor" ? "green" : "red"}
               />
             );
@@ -81,8 +95,7 @@ function Users(props) {
           totalUsers.map((v) => {
             return (
               <CardUsers
-                name={v.fname}
-                purpose={v.wanted}
+                item={v}
                 clr={v.wanted === "Donor" ? "green" : "red"}
               />
             );

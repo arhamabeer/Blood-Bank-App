@@ -6,7 +6,7 @@ import CardRequired from "../components/cardRequired";
 import { useHistory } from "react-router-dom";
 import action from "../store/action";
 import SearchBar from "material-ui-search-bar";
-import Swal from "sweetalert2";
+import Loader from "../components/loader";
 
 import { connect } from "react-redux";
 // import action from "../store/action";
@@ -37,7 +37,19 @@ function Required(props) {
 
   // console.log(Require)
   if (!Require) {
-    return <h1>Loading...</h1>;
+    return (
+      <div
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex",
+          height: "520px",
+          fontSize: 42,
+        }}
+      >
+        Fetching Seekers... <Loader />
+      </div>
+    );
   } else {
     const keys = Object.keys(Require);
     var allUsers = keys.map((item) => {
