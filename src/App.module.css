@@ -1,6 +1,7 @@
 body{
   color: wheat;
   background-image: url('./assets/bg-blood.jpg');
+  /* background: conic-gradient(#300202,#801922); */
   background-repeat: no-repeat;
   background-size: cover;
 }

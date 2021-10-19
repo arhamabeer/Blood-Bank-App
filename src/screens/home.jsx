@@ -6,8 +6,11 @@ import Button from "@material-ui/core/Button";
 import CardHome from "../components/cardHomeDonor";
 import { connect } from "react-redux";
 import action from "../store/action";
+import { useHistory } from "react-router";
+import Header from "../components/header";
 
 function Home(props) {
+  var history = useHistory()
   useEffect(async () => {
     // props.getFBUsers();
     await props.getMongoUsers();
@@ -32,27 +35,7 @@ function Home(props) {
   } else {
     return (
       <div className="div-home-main">
-        <div className="home-top-div">
-          <h1 style={{ fontSize: 40 }}>AAA BLOOD BANK</h1>
-          <img src={Logo} className="logo-img" alt="Logo Image" />
-        </div>
-        <div className="header-div-home">
-          <div className="header-div-home-userinfo">
-            <img
-              className="header-div-home-userinfo-icon"
-              src={User}
-              width="50px"
-              height="50px"
-              alt=""
-            />
-            &nbsp; User Name
-          </div>
-          <div className="header-div-home-logout">
-            <Button variant="contained" className="header-div-home-logout-btn">
-              Log Out
-            </Button>
-          </div>
-        </div>
+        <Header func={()=>props.logout(history)} />
         <div>
           <CardHome check={totalDonors} name="Donors" color="green" />
           <CardHome check={totalDonors} name="Requests" color="red" />
@@ -70,6 +53,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   // getFBUsers: action.getFBUsers,
   getMongoUsers: action.getMongoUsers,
+  logout: action.logout,
 };
 
 // const mapDispatchToProps = (dispatch) => ({

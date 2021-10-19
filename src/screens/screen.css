@@ -108,6 +108,12 @@
     justify-content: space-around;
     background-color: #ff000044;
 }
+.home-top-div1{
+    align-items: center;
+    align-self: stretch;
+    justify-content: space-around;
+    background-color: #ff000044;
+}
 
 .header-div-home{
     display: flex;

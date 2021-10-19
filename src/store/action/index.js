@@ -1,24 +1,32 @@
-import Firebase from "../../config/firebase";
-import firebase from "firebase";
 import Swal from "sweetalert2";
 
 const action = {};
 
+action.logout = (history) => {
+  return (dispatch) => {
+    localStorage.clear();
+    history.push("/login");
+  };
+};
+
 action.getMongoUsers = () => {
   return async (dispatch) => {
+    const token = localStorage.getItem("_tkn_bld_bank_user_credential");
+    // console.log('token=>',token)
     await fetch("/getdata", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log("Mongo res=>", data.data);
+        console.log("Mongo res=>", data);
         dispatch({
-          type: 'GET_MONGO_DATA',
-          payload: data.data
-        })
+          type: "GET_MONGO_DATA",
+          payload: data.data,
+        });
       })
       .catch((err) => {
         console.log("Mongo err=>", err);
@@ -57,12 +65,13 @@ action.login = (email, password, history) => {
           console.log("error=>", data);
           throw "Wrong Credentials.";
         } else {
-          console.log("success=>", data);
+          // console.log("success=>", data);
         }
         return data.json();
       })
       .then((data) => {
-        console.log("res=>", data);
+        console.log("res=>", data.token);
+        localStorage.setItem("_tkn_bld_bank_user_credential", data.token);
         Swal.fire({
           position: "center",
           icon: "success",
@@ -213,45 +222,45 @@ action.addUser = (
   };
 };
 
-action.getFBUsers = function () {
-  return (dispatch) => {
-    let payload = [];
-    dispatch({
-      type: "SET_STATE_NULL",
-      payload: [],
-    });
-    firebase
-      .database()
-      .ref("/users")
-      .on("child_added", (data) => {
-        // console.log(data.val());
-        // payload.push(data.val());
+// action.getFBUsers = function () {
+//   return (dispatch) => {
+//     let payload = [];
+//     dispatch({
+//       type: "SET_STATE_NULL",
+//       payload: [],
+//     });
+//     firebase
+//       .database()
+//       .ref("/users")
+//       .on("child_added", (data) => {
+//         // console.log(data.val());
+//         // payload.push(data.val());
 
-        dispatch({
-          type: "GET_FB_DATA",
-          payload: data.val(),
-        });
-      });
-  };
+//         dispatch({
+//           type: "GET_FB_DATA",
+//           payload: data.val(),
+//         });
+//       });
+//   };
 
-  // let payload = [];
-  // firebase
-  //   .database()
-  //   .ref("/users")
-  //   .on("child_added", (data) => {
-  //     // console.log(data.val());
-  //     payload.push(data.val());
-  //     return {
-  //       type: GET_FB_DATA,
-  //       payload,
-  //     };
-  //   });
+// let payload = [];
+// firebase
+//   .database()
+//   .ref("/users")
+//   .on("child_added", (data) => {
+//     // console.log(data.val());
+//     payload.push(data.val());
+//     return {
+//       type: GET_FB_DATA,
+//       payload,
+//     };
+//   });
 
-  // return {
-  //   type: GET_FB_DATA,
-  //   payload,
-  // };
-  // console.log('paylaod=> ', payload[0].address)
-};
+// return {
+//   type: GET_FB_DATA,
+//   payload,
+// };
+// console.log('paylaod=> ', payload[0].address)
+// };
 
 export default action;
