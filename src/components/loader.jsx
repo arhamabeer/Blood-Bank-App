@@ -11,7 +11,7 @@ import "react-circular-progressbar/dist/styles.css";
 
 class ChangingProgressProvider extends React.Component {
   static defaultProps = {
-    interval: 1000,
+    interval: 500,
   };
 
   state = {
@@ -36,7 +36,7 @@ export default function CircularColor() {
     //     <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
     //       <CircularProgress size={80}  color="inherit" />
     //     </Stack>
-    <ChangingProgressProvider values={[20, 100]}>
+    <ChangingProgressProvider values={[20,40,60,90,100]}>
       {(percentage) => (
         <CircularProgressbar
           value={percentage}
