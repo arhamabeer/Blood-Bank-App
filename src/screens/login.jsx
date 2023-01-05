@@ -9,6 +9,7 @@ import { useHistory } from "react-router";
 import { AddAlertTwoTone } from "@material-ui/icons";
 // import { getFBUsers } from "../store/action";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 function Login(props) {
   const [email, setEmail] = useState("");
@@ -34,9 +35,9 @@ function Login(props) {
         <InputAdornments func={handlePasswordChange} />
         <SignInBtn click={() => props.login(email, password, history)} />
       </form>
-      <a href="#" style={{ color: "wheat" }}>
+      <Link to={'/signup'} style={{ color: "wheat" }}>
         Don't have an account? Sign Up here
-      </a>
+      </Link>
     </div>
   );
 }
