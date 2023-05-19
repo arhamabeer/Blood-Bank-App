@@ -42,6 +42,17 @@ function UserProf({ location }) {
           clr={location.detail.clr}
         />
       </div>
+      <div className="div-user-info-btn">
+        <button
+          style={
+            item.wanted === "WantBlood"
+              ? { backgroundColor: "green" }
+              : { backgroundColor: "red" }
+          }
+        >
+          {item.wanted === "WantBlood" ? "Give Blood" : "Request Blood"}
+        </button>
+      </div>
     </div>
   );
 }
